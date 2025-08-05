@@ -5,11 +5,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mystery Getaway</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #e6f2ff;
+      text-align: center;
+    }
+    .koffer {
+      width: 100px;
+      margin: 20px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .koffer:hover {
+      transform: scale(1.1);
+    }
+    .items {
+      display: none;
+      margin-top: 10px;
+    }
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; background: #e6f2ff;">
+<body>
   <h1>Mystery Getaway</h1>
   <p>Los de puzzel op en ontdek wat je moet inpakken!</p>
-  <img src="koffer_mystery_getaway.jpg" alt="Koffer" width="300">
-  <p>🎁 Je hebt het mysterie ontrafeld... klik op de koffer!</p>
+
+  <div id="puzzel" style="margin-bottom: 30px;">
+    ✅ <em>Puzzel voltooid! (simulatie)</em>
+  </div>
+
+  <div id="koffers">
+    <img src="koffer_mystery_getaway.jpg" alt="Koffer 1" class="koffer" onclick="openItem(0)">
+    <img src="koffer_mystery_getaway.jpg" alt="Koffer 2" class="koffer" onclick="openItem(1)">
+    <img src="koffer_mystery_getaway.jpg" alt="Koffer 3" class="koffer" onclick="openItem(2)">
+    <img src="koffer_mystery_getaway.jpg" alt="Koffer 4" class="koffer" onclick="openItem(3)">
+  </div>
+
+  <div class="items" id="item0">👙 Zonder dit mag je niet mee het water in...</div>
+  <div class="items" id="item1">🕶️ Vergeet niet cool te blijven 😎</div>
+  <div class="items" id="item2">🧥 Voor als de wolken besluiten om mee op vakantie te gaan...</div>
+  <div class="items" id="item3">🛡️ Het is geen Hulk-honger... maar wel een missie waar zelfs de Avengers even voor stoppen.</div>
+
+  <div id="status">0 van 4 koffers geopend.</div>
+
+  <audio id="klik" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+  <script>
+    let geopend = [false, false, false, false];
+    function openItem(index) {
+      if (!geopend[index]) {
+        document.getElementById("item" + index).style.display = "block";
+        geopend[index] = true;
+        document.getElementById("klik").play();
+        updateStatus();
+      }
+    }
+
+    function updateStatus() {
+      const count = geopend.filter(x => x).length;
+      document.getElementById("status").innerText = count + " van 4 koffers geopend.";
+    }
+  </script>
 </body>
 </html>
